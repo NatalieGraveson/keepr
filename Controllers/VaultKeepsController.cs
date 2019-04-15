@@ -1,14 +1,10 @@
 
 
-
-
-
-
-
 using System.Collections;
 using System.Collections.Generic;
 using keepr.Repositories;
 using Keepr.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
@@ -37,8 +33,10 @@ namespace keepr.Controllers
 
     //CREATE
     [HttpPost]
+    [Authorize]
     public ActionResult<Vaultkeep> Create([FromBody] Vaultkeep vaultkeep)
     {
+      vaultkeep.UserId = HttpContext.User.Identity.Name;
       Vaultkeep newVaultkeep = _vkr.CreateVaultkeep(vaultkeep);
       if (newVaultkeep == null) { return BadRequest("vaultkeep not created"); }
       return Ok(newVaultkeep);
@@ -47,9 +45,10 @@ namespace keepr.Controllers
 
     //DELETE
     [HttpDelete("{id}")]
+    [Authorize]
     public ActionResult<string> Delete(int id)
     {
-      bool successful = _vkr.Delete(id);
+      bool successful = _vkr.Delete(id, HttpContext.User.Identity.Name);
       if (!successful) { return BadRequest(); }
       return Ok();
     }

@@ -15,9 +15,9 @@ namespace keepr.Repositories
       _db = db;
     }
 
-    public IEnumerable<Vault> GetAll()
+    public IEnumerable<Vault> GetAll(string userId)
     {
-      return _db.Query<Vault>("SELECT * From vaults");
+      return _db.Query<Vault>("SELECT * From vaults WHERE userId = @userId", new { userId });
     }
 
     public Vault GetById(int Id)
@@ -48,9 +48,9 @@ namespace keepr.Repositories
       return _db.Query<Keep>("SELECT * FROM keeps WHERE vaultId = @id", new { id });
     }
 
-    public bool Delete(int id)
+    public bool Delete(int id, string userId)
     {
-      int success = _db.Execute("DELETE FROM vaults WHERE id = @id", new { id });
+      int success = _db.Execute("DELETE FROM vaults WHERE id = @id and userId = @userId", new { id, userId });
       return success > 0;
     }
   }

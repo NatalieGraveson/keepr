@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using keepr.Repositories;
 using Keepr.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
@@ -18,9 +19,11 @@ namespace keepr.Controllers
 
     //GETALL
     [HttpGet]
+    [Authorize]
     public ActionResult<IEnumerable<Vault>> Get()
     {
-      IEnumerable<Vault> results = _vr.GetAll();
+      string userId = HttpContext.User.Identity.Name;
+      IEnumerable<Vault> results = _vr.GetAll(userId);
       if (results == null)
       {
         return BadRequest();
@@ -47,8 +50,10 @@ namespace keepr.Controllers
 
     //CREATE
     [HttpPost]
+    [Authorize]
     public ActionResult<Vault> Create([FromBody] Vault vault)
     {
+      vault.UserId = HttpContext.User.Identity.Name;
       Vault newVault = _vr.CreateVault(vault);
       if (newVault == null) { return BadRequest("Vault not created"); }
       return Ok(newVault);
@@ -56,9 +61,10 @@ namespace keepr.Controllers
 
     //Delete
     [HttpDelete("{id}")]
+    [Authorize]
     public ActionResult<string> Delete(int id)
     {
-      bool successful = _vr.Delete(id);
+      bool successful = _vr.Delete(id, HttpContext.User.Identity.Name);
       if (!successful) { return BadRequest(); }
       return Ok();
     }

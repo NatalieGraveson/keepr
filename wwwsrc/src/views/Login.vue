@@ -15,15 +15,18 @@
             <p v-if="loginForm">No account Click to Register</p>
             <p v-else>Already have an account click to Login</p>
         </div>
+        <public-keeps v-for="keep in keeps" :keepsData='keep'></public-keeps>
     </div>
 </template>
 
 <script>
+    import PublicKeeps from '@/components/PublicKeeps.vue'
     export default {
         name: "login",
         mounted() {
             //checks for valid session
             this.$store.dispatch("authenticate");
+            this.$store.dispatch('getPubKeeps');
         },
         data() {
             return {
@@ -39,6 +42,11 @@
                 }
             };
         },
+        computed: {
+            keeps() {
+                return this.$store.state.keeps
+            }
+        },
         methods: {
             register() {
                 this.$store.dispatch("register", this.newUser);
@@ -46,6 +54,9 @@
             loginUser() {
                 this.$store.dispatch("login", this.creds);
             }
+        },
+        components: {
+            PublicKeeps
         }
     };
 </script>
