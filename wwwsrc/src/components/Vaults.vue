@@ -4,13 +4,14 @@
       {{vaultData.name}}
 
 
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewVault">
+      <button type="button" class="btn btn-primary" data-toggle="modal" :data-target="'#viewVault' + vaultData.id">
         Launch demo modal
       </button>
 
+
       <!-- Modal -->
-      <div class="modal fade" id="viewVault" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
+      <div class="modal fade" :id="'viewVault' + vaultData.id" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header ">

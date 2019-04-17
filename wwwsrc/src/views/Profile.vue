@@ -61,9 +61,8 @@
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Keep
                   </button>
-                  <div v-for="vault in vaults" :vaultData="vault" class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" @click="">{{vault.name}}</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a v-for="vault in vaults" class="dropdown-item" @click="">{{vault.name}}</a>
 
                   </div>
                 </div>
@@ -82,6 +81,7 @@
           <i class="fas fa-plus mr-auto" data-toggle="modal" data-target="#addVault"></i>
           <vault-modal v-for="vault in vaults" :vaultData='vault'></vault-modal>
           <vaults v-for="vault in vaults" :vaultData='vault'></vaults>
+
         </div>
       </div>
     </div>
