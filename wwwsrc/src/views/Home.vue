@@ -18,6 +18,7 @@
 </template>
 
 <script>
+  import KeepModal from '@/components/KeepModal.vue'
   import HomeKeeps from '@/components/HomeKeeps.vue'
   export default {
     name: "home",
@@ -44,7 +45,8 @@
       }
     },
     components: {
-      HomeKeeps
+      HomeKeeps,
+      KeepModal
     }
 
   };

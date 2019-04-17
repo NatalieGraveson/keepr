@@ -51,17 +51,27 @@
           </div>
           <div class="row">
             <div class="col-3" v-for="keep in keeps">
-              <!-- <div class="card">
-                {{keeps.name}}
-                <img v-bind:src="keepsData.img" />
-                {{keeps.description}}
-                <i class="fas fa-trash" @click="removeKeep(keepsData._id)"></i>
-              </div> -->
               <div class="card">
                 <h1>{{keep.name}}</h1>
                 <img v-bind:src="keep.img" />
                 <i class="fas fa-trash" @click="removeKeep(keep.id)"></i>
+                <button class="btn btn-outline-dark" data-toggle="modal" data-target="#openModal">view</button>
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Keep
+                  </button>
+                  <div v-for="vault in vaults" :vaultData="vault" class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" @click="">{{vault.name}}</a>
+
+                  </div>
+                </div>
+                </form>
+
               </div>
+
+              <keep-modal v-for="keep in keeps" :keepData='keep'></keep-modal>
 
             </div>
           </div>
@@ -69,6 +79,8 @@
       </div>
       <div class="row">
         <div class="col-12 mt-5">
+          <i class="fas fa-plus mr-auto" data-toggle="modal" data-target="#addVault"></i>
+          <vault-modal v-for="vault in vaults" :vaultData='vault'></vault-modal>
           <vaults v-for="vault in vaults" :vaultData='vault'></vaults>
         </div>
       </div>
@@ -77,7 +89,9 @@
 </template>
 
 <script>
+  import KeepModal from '@/components/KeepModal.vue'
   import Vaults from '@/components/Vaults.vue'
+  import VaultModal from '@/components/VaultModal.vue'
   export default {
     name: "profile",
     props: [],
@@ -91,6 +105,7 @@
     },
     data() {
       return {
+        showAddVaultKeep: false,
         newKeep: {
           name: "",
           description: "",
@@ -119,12 +134,13 @@
         this.$store.dispatch('logOut')
       },
       removeKeep(keepId) {
-        debugger
         this.$store.dispatch("removeKeep", keepId);
       },
     },
     components: {
-      Vaults
+      Vaults,
+      VaultModal,
+      KeepModal,
     }
   }
 </script>
