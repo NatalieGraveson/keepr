@@ -15,15 +15,17 @@ namespace keepr.Repositories
     {
       _db = db;
     }
-
+    // pass string userID
+    //OR userId = @userId
+    //, new { userId }
     public IEnumerable<Keep> GetAll(string userId)
     {
-      return _db.Query<Keep>("SELECT * From keeps WHERE isPrivate = 0 OR userId = @userId", new { userId });
+      return _db.Query<Keep>("SELECT * From keeps WHERE isPrivate = 0", new { userId });
     }
 
-    public Keep GetById(int Id)
+    public IEnumerable<Keep> GetByUserId(string userId)
     {
-      return _db.QueryFirstOrDefault<Keep>("SELECT * FROM keeps WHERE id = @Id", new { Id });
+      return _db.Query<Keep>("SELECT * FROM keeps WHERE userId = @userId", new { userId });
     }
 
     public Keep CreateKeep(Keep keep)
@@ -48,6 +50,31 @@ namespace keepr.Repositories
     {
       int success = _db.Execute("DELETE FROM keeps WHERE id = @id AND userId = @userId", new { id, userId });
       return success > 0;
+    }
+
+    public Keep EditKeep(int id, Keep editedKeep)
+    {
+      try
+      {
+        string query = @"UPDATE keeps SET
+          name = @Name,
+          description = @Description,
+          userId = @UserId,
+          img = @Img,
+          isprivate = @IsPrivate,
+          views = @Views,
+          shares = @Shares,
+          keeps = @Keeps,
+          WHERE id = @Id;
+          SELECT * FROM keeps WHERE id = @Id;
+          ";
+        return _db.QueryFirstOrDefault<Keep>(query, editedKeep);
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        return null;
+      }
     }
   }
 }

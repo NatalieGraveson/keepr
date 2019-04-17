@@ -24,6 +24,7 @@ export default new Vuex.Store({
     user: {},
     keeps: [],
     savedKeeps: [],
+    vaults: []
   },
   mutations: {
     setUser(state, user) {
@@ -34,7 +35,10 @@ export default new Vuex.Store({
     },
     setSavedKeeps(state, payload) {
       state.savedKeeps.push(payload)
-    }
+    },
+    setVaults(state, vaults) {
+      state.vaults = vaults
+    },
   },
   actions: {
     register({ commit, dispatch }, newUser) {
@@ -58,6 +62,7 @@ export default new Vuex.Store({
         })
     },
     login({ commit, dispatch }, creds) {
+
       auth.post('login', creds)
         .then(res => {
           commit('setUser', res.data)
@@ -83,8 +88,37 @@ export default new Vuex.Store({
     //home keeps
     SaveKeep({ commit, dispatch }, payload) {
       commit('setSavedKeeps', payload)
-    }
+    },
+    removeKeep({ commit, dispatch }, payload) {
+      api.delete('keeps/' + payload)
+        .then(res => {
+          dispatch('getKeeps')
+        })
+    },
+    //profile keeps
+    getKeeps({ commit, dispatch }) {
+      api.get('keeps/user')
+        .then(res => {
+          commit('setKeeps', res.data)
 
+        })
+    },
+    addKeep({ commit, dispatch }, keepData) {
+      api.post('keeps', keepData)
+        .then(res => {
+          dispatch('getKeeps', 'getPubKeeps')
+        })
+
+    },
+    //profile vaults
+    getVaults({ commit, dispatch }) {
+      api.get('vaults')
+        .then(res => {
+          commit('setVaults', res.data)
+
+        })
+
+    }
 
   }
 })

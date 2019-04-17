@@ -1,15 +1,19 @@
 <template>
   <div class="home">
-    <nav class="navbar navbar-dark bg-dark">
-      <span class="navbar-brand mb-0 h1">Navbar</span>
+    <nav class="navbar navbar-dark">
+      <span class="navbar-brand mb-0 h1">Keepr</span>
       <!-- <i @click="router.push({ name: 'Profile' })" class="far fa-user text-white"></i> -->
-      <router-link class="ml-auto far fa-user text-white" :to="{name: 'Profile'}">
+      <router-link class="ml-auto mr-3 far fa-user text-white fa-2x" :to="{name: 'profile'}">
       </router-link>
 
-      <button type="button" @click="logOut">Logout</button>
+      <button type="button" class="btn btn-outline-light" @click="logOut">Logout</button>
     </nav>
     <h1>Welcome Home</h1>
-    <home-keeps v-for="keep in keeps" :keepsData='keep'></home-keeps>
+    <div class="container-fluid">
+      <div class="row">
+        <home-keeps v-for="keep in keeps" :keepsData='keep'></home-keeps>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,8 +31,13 @@
     computed: {
       keeps() {
         return this.$store.state.keeps
+      },
+
+      user() {
+        return this.$store.state.user
       }
     },
+
     methods: {
       logOut() {
         this.$store.dispatch('logOut')
@@ -40,3 +49,9 @@
 
   };
 </script>
+
+<style scoped>
+  .navbar {
+    background-color: #ed6761;
+  }
+</style>

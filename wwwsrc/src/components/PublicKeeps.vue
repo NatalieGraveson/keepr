@@ -1,13 +1,13 @@
 <template>
-  <div class="publickeeps container-fluid">
-    <div class="row">
-      <div class="col-12">
-        {{keepsData.name}}
-        <img v-bind:src="keepsData.img" />
-        {{keepsData.description}}
-      </div>
-
+  <div class="col-3 justify-content-center publickeeps">
+    <div class="card">
+      {{keepsData.name}}
+      <img v-bind:src="keepsData.img" />
+      {{keepsData.description}}
     </div>
+  </div>
+
+  </div>
 
   </div>
 </template>
@@ -28,3 +28,9 @@
     components: {}
   }
 </script>
+<style scoped>
+  img {
+    max-width: 30vh;
+    max-height: 30vh;
+  }
+</style>

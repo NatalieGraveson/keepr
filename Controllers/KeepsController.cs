@@ -31,14 +31,37 @@ namespace keepr.Controllers
       return Ok(results);
     }
 
-    //GetByID
-    [HttpGet("{id}")]
-    public ActionResult<Keep> Get(int id)
+    //get keeps by user
+    [Authorize]
+    [HttpGet("user")]
+    public ActionResult<IEnumerable<Keep>> GetByUserId()
     {
-      Keep found = _kr.GetById(id);
+      string userId = HttpContext.User.Identity.Name;
+      IEnumerable<Keep> found = _kr.GetByUserId(userId);
       if (found == null) { return BadRequest(); }
       return Ok(found);
     }
+
+    // getby id
+    // [Authorize]
+    // [HttpGet("/")]
+    // public ActionResult<Keep> GetByUserId()
+    // {
+    //   string userId = HttpContext.User.Identity.Name;
+    //   Keep found = _kr.GetByUserId(userId);
+    //   if (found == null) { return BadRequest(); }
+    //   return Ok(found);
+    // }
+
+    //update keep   keeps/:keepId
+    [HttpPut("{id}")]
+    public ActionResult<Keep> Edit(int id, [FromBody] Keep editedKeep)
+    {
+      Keep updatedKeep = _kr.EditKeep(id, editedKeep);
+      if (updatedKeep == null) { return BadRequest("Keep not updated"); }
+      return Ok(updatedKeep);
+    }
+
 
     //create
     [Authorize]
