@@ -4,7 +4,11 @@
       {{vaultData.name}}
 
 
-      <button type="button" class="btn btn-primary" data-toggle="modal" :data-target="'#viewVault' + vaultData.id">
+
+
+
+      <button type="button" class="btn btn-primary" data-toggle="modal" :data-target="'#viewVault' + vaultData.id"
+        @click="setActive">
         Launch demo modal
       </button>
 
@@ -22,6 +26,11 @@
             </div>
             <div class="modal-body">
               <h1>{{vaultData.description}}</h1>
+              <div v-for="keep in vaultKeeps">
+                <!-- <div class="card"> -->
+                <h1>{{keep.name}}</h1>
+                <!-- </div> -->
+              </div>
               <!-- added keeps will go here -->
             </div>
             <div class="modal-footer">
@@ -41,13 +50,27 @@
   export default {
     name: "vaults",
     props: ['vaultData'],
+    mounted() {
+      this.$store.dispatch('getVaultKeeps', this.vaultData.id)
+    },
     data() {
       return {}
     },
-    computed: {},
+    computed: {
+      vaultKeeps() {
+        return this.$store.state.vaultKeeps
+      },
+      activeVault() {
+        this.$store.state.activeVault
+      }
+    },
     methods: {
       removeVault() {
         this.$store.dispatch("removeVault", this.vaultData.id);
+      },
+      setActive() {
+        this.$store.dispatch("setActive", this.vaultData);
+        this.$store.dispatch('getVaultKeeps', this.vaultData.id)
       }
     },
     components: {}

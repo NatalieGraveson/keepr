@@ -24,7 +24,9 @@ export default new Vuex.Store({
     user: {},
     keeps: [],
     savedKeeps: [],
-    vaults: []
+    vaults: [],
+    vaultKeeps: [],
+    ActiveVault: {},
   },
   mutations: {
     setUser(state, user) {
@@ -39,6 +41,16 @@ export default new Vuex.Store({
     setVaults(state, vaults) {
       state.vaults = vaults
     },
+    setVaultKeeps(state, payload) {
+      state.vaultKeeps = payload
+    },
+    setActiveVault(state, payload) {
+      state.ActiveVault = payload
+    },
+    clearVaultKeep(state) {
+
+      state.vaultKeeps = []
+    }
   },
   actions: {
     register({ commit, dispatch }, newUser) {
@@ -126,12 +138,31 @@ export default new Vuex.Store({
         })
     },
     removeVault({ commit, dispatch }, payload) {
-      debugger
       api.delete('vaults/' + payload)
         .then(res => {
           dispatch('getVaults')
 
         })
+    },
+    //vaultkeeps
+    getVaultKeeps({ commit, dispatch }, payload) {
+      api.get('vaultkeeps/' + payload)
+        .then(res => {
+          commit('setVaultKeeps', res.data)
+        })
+    },
+    createVaultKeep({ commit, dispatch }, payload) {
+      api.post('vaultkeeps/', payload)
+        .then(res => {
+          dispatch('getVaultKeeps', payload.vaultId)
+        })
+    },
+    setActive({ commit, dispatch }, payload) {
+      commit('setActiveVault', payload)
+
+    },
+    clearVaultKeeps({ commit }) {
+      commit('clearVaultKeep')
     }
   }
 })

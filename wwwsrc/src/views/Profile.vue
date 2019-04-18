@@ -62,7 +62,8 @@
                     Keep
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a v-for="vault in vaults" class="dropdown-item" @click="">{{vault.name}}</a>
+                    <a v-for="vault in vaults" class="dropdown-item"
+                      @click="createVaultKeep(vault, keep)">{{vault.name}}</a>
 
                   </div>
                 </div>
@@ -98,6 +99,7 @@
     mounted() {
       this.$store.dispatch('getKeeps');
       this.$store.dispatch('getVaults');
+
       //blocks users not logged in
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
@@ -124,11 +126,23 @@
       vaults() {
         return this.$store.state.vaults
       },
+      vaultKeeps() {
+        return this.$store.state.vaultKeeps
+      }
+
     },
     methods: {
       addKeep() {
         this.$store.dispatch("addKeep", this.newKeep)
         this.newKeep = { name: "", description: "", img: "" };
+      },
+      createVaultKeep(vault, keep) {
+        let payload = {
+          vaultid: vault.id,
+          keepid: keep.id,
+          userid: this.user.id
+        }
+        this.$store.dispatch('createVaultKeep', payload)
       },
       logOut() {
         this.$store.dispatch('logOut')

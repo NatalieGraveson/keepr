@@ -24,6 +24,7 @@
     name: "home",
     mounted() {
       this.$store.dispatch('getPubKeeps');
+      this.$store.dispatch('clearVaultKeeps');
       //blocks users not logged in
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
