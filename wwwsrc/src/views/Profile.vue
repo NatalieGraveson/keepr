@@ -8,9 +8,9 @@
       <button type="button" class="btn btn-outline-light" @click="logOut">Logout</button>
     </nav>
     <div class="container-fluid">
+      <i class="fas fa-plus mr-auto" data-toggle="modal" data-target="#addKeep"></i>
       <div class="row">
         <div class="col-12">
-          <i class="fas fa-plus mr-auto" data-toggle="modal" data-target="#addKeep"></i>
 
           <div class="modal fade" id="addKeep" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true">
@@ -77,9 +77,10 @@
           </div>
         </div>
       </div>
+      <hr>
+      <i class="fas fa-plus mr-auto" data-toggle="modal" data-target="#addVault"></i>
       <div class="row">
-        <div class="col-12 mt-5">
-          <i class="fas fa-plus mr-auto" data-toggle="modal" data-target="#addVault"></i>
+        <div class="col-12 mt-5 vaultSpot">
           <vault-modal v-for="vault in vaults" :vaultData='vault'></vault-modal>
           <vaults v-for="vault in vaults" :vaultData='vault'></vaults>
 
@@ -165,7 +166,17 @@
   }
 
   img {
-    max-width: 30vh;
-    max-height: 30vh;
+    max-width: 100%;
+    max-height: 64vh;
+    margin-left: 37px;
+    margin-right: 37px;
+  }
+
+  .vaultSpot {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: row;
+
   }
 </style>

@@ -44,11 +44,17 @@ namespace keepr.Controllers
 
 
     //DELETE
-    [HttpDelete("{id}")]
+    [HttpDelete("{vaultId}/{keepId}")]
     [Authorize]
-    public ActionResult<string> Delete(int id)
+    // public ActionResult<string> Delete(int id)
+    // {
+    //   bool successful = _vkr.Delete(id, HttpContext.User.Identity.Name);
+    //   if (!successful) { return BadRequest(); }
+    //   return Ok();
+    // }
+     public ActionResult<string> Delete(int vaultId, int keepId)
     {
-      bool successful = _vkr.Delete(id, HttpContext.User.Identity.Name);
+      bool successful = _vkr.Delete(vaultId, keepId, HttpContext.User.Identity.Name);
       if (!successful) { return BadRequest(); }
       return Ok();
     }

@@ -26,9 +26,9 @@
             </div>
             <div class="modal-body">
               <h1>{{vaultData.description}}</h1>
-              <div v-for="keep in vaultKeeps">
+              <div v-for="keep in vaultKeeps" :keepData="keep">
                 <!-- <div class="card"> -->
-                <h1>{{keep.name}}</h1>
+                <h1>{{keep.name}} <i class="fas fa-trash" @click="deleteKeepFromVault(keep.id)"></i></h1>
                 <!-- </div> -->
               </div>
               <!-- added keeps will go here -->
@@ -71,8 +71,18 @@
       setActive() {
         this.$store.dispatch("setActive", this.vaultData);
         this.$store.dispatch('getVaultKeeps', this.vaultData.id)
+      },
+      deleteKeepFromVault(keepId) {
+        let payload = {
+          vaultid: this.vaultData.id,
+          keepId
+        }
+        this.$store.dispatch('deleteKeepFromVault', payload)
       }
+
+
     },
+
     components: {}
   }
 </script>
@@ -80,5 +90,6 @@
   .vaultcard {
     background-color: pink;
     height: 250px;
+    width: 609px;
   }
 </style>

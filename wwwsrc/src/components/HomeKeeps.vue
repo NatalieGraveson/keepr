@@ -1,5 +1,5 @@
 <template>
-  <div class="publickeeps col-3 justify-content-center">
+  <div class="homekeeps col-3 justify-content-center">
     <div class="card">
       {{keepsData.name}}
       <img v-bind:src="keepsData.img" />
