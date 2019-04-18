@@ -1,15 +1,16 @@
 <template>
   <div class="vaults row">
     <div class="card col-4 vaultcard">
-      {{vaultData.name}}
+      <h1 class="text-dark">{{vaultData.name}}</h1>
 
 
 
 
 
-      <button type="button" class="btn btn-primary" data-toggle="modal" :data-target="'#viewVault' + vaultData.id"
+
+      <button type="button" class="btn btn-outline-light" data-toggle="modal" :data-target="'#viewVault' + vaultData.id"
         @click="setActive">
-        Launch demo modal
+        view
       </button>
 
 
@@ -28,8 +29,11 @@
               <h1>{{vaultData.description}}</h1>
               <div v-for="keep in vaultKeeps" :keepData="keep">
                 <!-- <div class="card"> -->
-                <h1>{{keep.name}} <i class="fas fa-trash" @click="deleteKeepFromVault(keep.id)"></i></h1>
-                <!-- </div> -->
+                <div class="card">
+                  <img v-bind:src="keep.img" class="card-img-top" alt="...">
+                  <h1>{{keep.name}} <i class="fas fa-trash" @click="deleteKeepFromVault(keep.id)"></i></h1>
+                  <!-- </div> -->
+                </div>
               </div>
               <!-- added keeps will go here -->
             </div>
@@ -88,7 +92,7 @@
 </script>
 <style scoped>
   .vaultcard {
-    background-color: pink;
+    background-color: lightcoral;
     height: 250px;
     width: 609px;
   }

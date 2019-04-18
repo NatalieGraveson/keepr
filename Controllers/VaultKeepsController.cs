@@ -52,7 +52,7 @@ namespace keepr.Controllers
     //   if (!successful) { return BadRequest(); }
     //   return Ok();
     // }
-     public ActionResult<string> Delete(int vaultId, int keepId)
+    public ActionResult<string> Delete(int vaultId, int keepId)
     {
       bool successful = _vkr.Delete(vaultId, keepId, HttpContext.User.Identity.Name);
       if (!successful) { return BadRequest(); }

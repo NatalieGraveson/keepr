@@ -1,11 +1,15 @@
 <template>
   <div class="homekeeps col-3 justify-content-center">
-    <div class="card">
-      {{keepsData.name}}
-      <img v-bind:src="keepsData.img" />
-      {{keepsData.description}}
-      <!-- <i class="fas fa-trash" @click="removeKeep(keepsData._id)"></i> -->
+    <div class="card mt-3" style="width: 18rem;">
+      <img v-bind:src="keepsData.img" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">{{keepsData.name}}</h5>
+        <p class="card-text">{{keepsData.description}}
+        </p>
+
+      </div>
     </div>
+
   </div>
 
   </div>
@@ -34,7 +38,7 @@
 
 <style scoped>
   img {
-    max-width: 30vh;
-    max-height: 30vh;
+    max-width: 47vh;
+    max-height: 53vh;
   }
 </style>

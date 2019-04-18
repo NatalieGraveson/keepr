@@ -1,9 +1,9 @@
 <template>
   <div class="col-3 justify-content-center publickeeps">
-    <div class="card">
-      {{keepsData.name}}
+    <div class="card mt-5">
+      <h2>{{keepsData.name}}</h2>
       <img v-bind:src="keepsData.img" />
-      {{keepsData.description}}
+      <h4>{{keepsData.description}}</h4>
     </div>
   </div>
 
@@ -30,7 +30,20 @@
 </script>
 <style scoped>
   img {
-    max-width: 30vh;
-    max-height: 30vh;
+    max-width: 47vh;
+    max-height: 53vh;
+  }
+
+  .card {
+    height: min-content;
+    border: 3px solid #969da5;
+  }
+
+  h2 {
+    color: black;
+  }
+
+  h4 {
+    color: #ed6761;
   }
 </style>
