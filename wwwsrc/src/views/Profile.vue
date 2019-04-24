@@ -7,8 +7,11 @@
       </router-link>
       <button type="button" class="btn btn-outline-light" @click="logOut">Logout</button>
     </nav>
-    <div class="container-fluid">
+    <nav class="navbar navbar-dark bg-light">
       <h1>KEEPS &nbsp<i class="fas fa-plus mr-auto" data-toggle="modal" data-target="#addKeep"></i></h1>
+    </nav>
+    <div class="container-fluid">
+
       <div class="row">
 
 
@@ -52,8 +55,8 @@
 
 
 
-        <div class="card mx-2 borderStyle cardSize col-2" v-for="keep in keeps">
-          <img v-bind:src="keep.img" class="card-img-top" alt="...">
+        <div class="card bg-light mx-2 borderStyle cardSize col-2" v-for="keep in keeps">
+          <img v-bind:src="keep.img" class="card-img-top mt-3" alt="...">
           <div class="card-body">
             <div class="row">
 
@@ -82,12 +85,11 @@
     <keep-modal v-for="keep in keeps" :keepData='keep'></keep-modal>
     <hr>
     <h1>VAULTS &nbsp<i class="fas fa-plus mr-auto" data-toggle="modal" data-target="#addVault"></i></h1>
+    <vault-modal v-for="vault in vaults" :vaultData='vault'></vault-modal>
     <div class="row">
-      <div class="col-12 mt-3 vaultSpot">
-        <vault-modal v-for="vault in vaults" :vaultData='vault'></vault-modal>
-        <vaults v-for="vault in vaults" :vaultData='vault'></vaults>
+      <vaults v-for="vault in vaults" :vaultData='vault'></vaults>
 
-      </div>
+
     </div>
     <div class="row">
       <div class="col-12 colStyle"></div>
@@ -178,13 +180,13 @@
 
   }
 
-  .vaultSpot {
+  /* .vaultSpot {
     display: flex;
     text-align: center;
     justify-content: center;
     flex-direction: row;
 
-  }
+  } */
 
   .keepSpot {
     display: flex;
@@ -202,9 +204,9 @@
     color: white;
   }
 
-  .borderStyle {
+  /* .borderStyle {
     border: 3px solid #969da5;
-  }
+  } */
 
   .colStyle {
     height: 75px;

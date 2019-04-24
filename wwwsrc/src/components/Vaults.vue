@@ -1,6 +1,6 @@
 <template>
-  <div class="vaults row">
-    <div class="card col-4 vaultcard">
+  <div class="vaults col-4">
+    <div class="card vaultcard">
       <h1 class="text-dark">{{vaultData.name}}</h1>
 
 
